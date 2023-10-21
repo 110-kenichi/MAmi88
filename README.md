@@ -10,7 +10,7 @@ https://github.com/rururutan/m88
 ライセンスと利用規約はオリジナルに準拠しますが、互換ROMの利用は可能です。
 通信に使用しているrpclibはMITライセンスです。
 
-##使い方
+## 使い方
 
 1. MAmidiMEmoを -chip_server オプションありで起動し、YM2608を追加する。なお、この時、Windowsの警告が出ます。利用には許可が必要ですので各自でご判断ください。
 2. 追加したYM2608のプロパティで、使用したい SoundEngine を選択し、鳴らす準備をする。
@@ -21,7 +21,7 @@ https://github.com/rururutan/m88
 
 *一般的な使い方はM88, MAmidiMemoを参照ください
 
-##注意/補足
+## 注意/補足
 
 * M88が元々対応していたG.I.M.I.Cは使えなくなっています
 * MAmiのソフトウエア音源も鳴らせますがADPCMに制限があります
@@ -29,11 +29,11 @@ https://github.com/rururutan/m88
 * FM音源(48h)を使う場合はMAmiで2つ目のYM2608を登録してそちらを設定してください
 * ソースの修正箇所には "HACK: MAmi"とコメントしています
 
-##利用ライブラリ
+## 利用ライブラリ
 
 * 通信には rpclib を使用しています https://github.com/rpclib/rpclib
 
-#以下オリジナルより引用
+# 以下オリジナルより引用
 
 # M88 - PC8801 Series Emulator
 
