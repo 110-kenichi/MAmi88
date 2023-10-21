@@ -1,0 +1,23 @@
+# Compiled Object files
+x64/
+Debug/
+Release/
+*.lib
+*.obj
+*.aps
+
+# Work files
+*.ini
+*.ncb
+*.suo
+*.sdf
+*.opensdf
+*.user
+*.dmp
+*.*~
+
+# Binary files
+*.m88
+*.exe
+*.rom
+
