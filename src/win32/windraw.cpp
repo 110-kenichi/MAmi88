@@ -314,7 +314,7 @@ void WinDraw::WindowMoved(int x, int y)
 // ---------------------------------------------------------------------------
 //	画面描画ドライバの変更
 //
-bool WinDraw::ChangeDisplayMode(bool fullscreen, bool force480)
+bool WinDraw::ChangeDisplayMode(bool fullscreen, int zoomratio, bool force480)
 {
 	DisplayType type = fullscreen ? DDFull : D2D;
 
@@ -346,6 +346,8 @@ bool WinDraw::ChangeDisplayMode(bool fullscreen, bool force480)
 			break;
 		case DDFull:
 			newdraw = new WinDrawDDS(force480);
+			width = 640;
+			height = 400;
 			break;
 		case D2D:
 			newdraw = new WinDrawD2D;

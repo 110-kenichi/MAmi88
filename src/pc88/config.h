@@ -93,6 +93,7 @@ public:
 	int clock;
 	int speed;
 	int refreshtiming;
+	int zoomratio;
 	int mainsubratio;
 	int opnclock;
 	int sound;

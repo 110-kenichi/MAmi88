@@ -72,7 +72,7 @@ public:
 	
 	void SetPriorityLow(bool low);
 	void SetGUIFlag(bool flag);
-	bool ChangeDisplayMode(bool fullscreen, bool force480 = true);
+	bool ChangeDisplayMode(bool fullscreen, int zoomratio, bool force480 = true);
 	void Refresh() { refresh = 1; }
 	void WindowMoved(int cx, int cy);
 

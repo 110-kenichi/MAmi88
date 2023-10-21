@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
-// Microsoft Visual C++ generated include file.
-// Used by M88.rc
+// Microsoft Visual C++ で生成されたインクルード ファイル。
+// M88.rc で使用
 //
 #define IDM_CONFIG                      0
 #define IDM_MEM_F_1                     8
@@ -261,11 +261,17 @@
 #define IDM_4MHZ                        40229
 #define IDM_8MHZ                        40230
 
+#define IDC_SCREEN_ZOOM_1               51045
+#define IDC_SCREEN_ZOOM_2               51048
+#define IDC_SCREEN_ZOOM_3               51049
+#define IDC_SCREEN_ZOOM_4               51050
+#define IDC_SCREEN_ZOOM_5               51051
+
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        140
+#define _APS_NEXT_RESOURCE_VALUE        141
 #define _APS_NEXT_COMMAND_VALUE         40231
 #define _APS_NEXT_CONTROL_VALUE         1136
 #define _APS_NEXT_SYMED_VALUE           101

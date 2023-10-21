@@ -13,13 +13,11 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// 日本語 resources
+// 日本語 (日本) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)
-#ifdef _WIN32
 LANGUAGE LANG_JAPANESE, SUBLANG_DEFAULT
 #pragma code_page(932)
-#endif //_WIN32
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
@@ -52,7 +50,7 @@ END
 // Menu
 //
 
-IDR_MENU_M88 MENU 
+IDR_MENU_M88 MENU
 BEGIN
     POPUP "&Control"
     BEGIN
@@ -114,7 +112,7 @@ BEGIN
     END
 END
 
-IDR_MENU_MEMORY MENU 
+IDR_MENU_MEMORY MENU
 BEGIN
     POPUP "&Image"
     BEGIN
@@ -158,7 +156,7 @@ BEGIN
     END
 END
 
-IDR_MENU_DEBUG MENU 
+IDR_MENU_DEBUG MENU
 BEGIN
     MENUITEM "&Text",                       IDM_DEBUG_TEXT
     MENUITEM "GVRAM&0",                     IDM_DEBUG_GVRAM0
@@ -166,7 +164,7 @@ BEGIN
     MENUITEM "GVRAM&2",                     IDM_DEBUG_GVRAM2
 END
 
-IDR_MENU_IOV MENU 
+IDR_MENU_IOV MENU
 BEGIN
     MENUITEM "&Reset",                      IDM_IO_CLEAR
     POPUP "&Bus"
@@ -182,7 +180,7 @@ END
 // Accelerator
 //
 
-IDR_ACC_M88UI ACCELERATORS 
+IDR_ACC_M88UI ACCELERATORS
 BEGIN
     VK_DELETE,      IDM_LOGEND,             VIRTKEY, CONTROL, NOINVERT
     VK_F1,          IDM_SNAPSHOT_LOAD,      VIRTKEY, ALT, NOINVERT
@@ -202,13 +200,14 @@ END
 // remains consistent on all systems.
 IDI_ICON_M88            ICON                    "M88.ico"
 
+
 /////////////////////////////////////////////////////////////////////////////
 //
 // DESIGNINFO
 //
 
 #ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
+GUIDELINES DESIGNINFO
 BEGIN
     IDD_ABOUT, DIALOG
     BEGIN
@@ -393,6 +392,12 @@ BEGIN
     CONTROL         "描画の優先度を下げる(&L)",IDC_SCREEN_LOWPRIORITY,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,75,97,10
     CONTROL         "偶数ラインを表示する(&F)",IDC_SCREEN_FULLLINE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,85,93,10
     CONTROL         "全画面モードで VSync に同期(&S)",IDC_SCREEN_VSYNC,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,95,122,10
+    GROUPBOX        "画面拡大率(&Z) *要再起動",IDC_STATIC,10,108,186,24
+    CONTROL         "x1",IDC_SCREEN_ZOOM_1,"Button",BS_AUTORADIOBUTTON | WS_GROUP,18,120,24,10
+    CONTROL         "x2",IDC_SCREEN_ZOOM_2,"Button",BS_AUTORADIOBUTTON,48,120,24,10
+    CONTROL         "x3",IDC_SCREEN_ZOOM_3,"Button",BS_AUTORADIOBUTTON,78,120,24,10
+    CONTROL         "x4",IDC_SCREEN_ZOOM_4,"Button",BS_AUTORADIOBUTTON,108,120,24,10
+    CONTROL         "x5",IDC_SCREEN_ZOOM_5,"Button",BS_AUTORADIOBUTTON,138,120,24,10
 END
 
 IDD_CONFIG_FUNCTION DIALOGEX 0, 0, 210, 147
@@ -548,7 +553,7 @@ BEGIN
     CONTROL         "英語 101 キーボード(&E)",IDC_ENV_KEY101,"Button",BS_AUTORADIOBUTTON,10,37,99,10
 END
 
-IDD_NEWDISK DIALOG  30, 50, 187, 81
+IDD_NEWDISK DIALOG 30, 50, 187, 81
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "新しいディスクの作成"
 FONT 9, "ＭＳ Ｐゴシック"
@@ -579,7 +584,7 @@ FONT 9, "ＭＳ Ｐゴシック", 0, 0, 0x0
 BEGIN
 END
 
-IDD_CODEMON DIALOG  0, 0, 187, 92
+IDD_CODEMON DIALOG 0, 0, 187, 92
 STYLE DS_SETFONT | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_VSCROLL | WS_SYSMENU | WS_THICKFRAME
 CAPTION "Code"
 MENU IDR_MENU_MEMORY
@@ -598,21 +603,21 @@ BEGIN
     PUSHBUTTON      "Cancel",IDCANCEL,65,20,35,12
 END
 
-IDD_BASMON DIALOG  0, 0, 186, 94
+IDD_BASMON DIALOG 0, 0, 186, 94
 STYLE DS_SETFONT | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_VSCROLL | WS_SYSMENU | WS_THICKFRAME
 CAPTION "Basic"
 FONT 9, "ＭＳ Ｐゴシック"
 BEGIN
 END
 
-IDD_REGMON DIALOG  0, 0, 114, 58
+IDD_REGMON DIALOG 0, 0, 114, 58
 STYLE DS_SETFONT | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
 CAPTION "Z80(main/sub)"
 FONT 9, "ＭＳ Ｐゴシック"
 BEGIN
 END
 
-IDD_IOVMON DIALOG  0, 0, 187, 92
+IDD_IOVMON DIALOG 0, 0, 187, 92
 STYLE DS_SETFONT | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_VSCROLL | WS_SYSMENU | WS_THICKFRAME
 CAPTION "Outport"
 MENU IDR_MENU_IOV
@@ -630,7 +635,18 @@ BEGIN
     RTEXT           "100 ms",IDC_ROMEO_LATENCY_TEXT,155,10,32,8
 END
 
-#endif    // 日本語 resources
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_CONFIG_SCREEN AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+#endif    // 日本語 (日本) resources
 /////////////////////////////////////////////////////////////////////////////
 
 

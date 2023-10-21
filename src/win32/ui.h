@@ -36,6 +36,9 @@ public:
 	uint GetMouseButton() { return mousebutton; }
 	HWND GetHWnd() { return hwnd; }
 
+	static PC8801::Config* sconfig;
+	static int zoomratio;
+
 private:
 	struct DiskInfo
 	{

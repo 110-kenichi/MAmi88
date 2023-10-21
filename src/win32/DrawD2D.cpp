@@ -7,6 +7,7 @@
 
 #include "headers.h"
 #include "drawd2d.h"
+#include "ui.h"
 
 #pragma comment( lib,    "delayimp.lib" )
 #pragma comment( lib,    "d2d1.lib" )
@@ -83,6 +84,8 @@ bool WinDrawD2D::CreateD2D()
 	Cleanup();
 
 	if ( m_hCWnd == 0 ) {
+		int zoomratio = WinUI::zoomratio;
+
 		// Base window‚ð¶¬
 		m_hCWnd = ::CreateWindowEx(
 			WS_EX_TRANSPARENT,
@@ -91,8 +94,8 @@ bool WinDrawD2D::CreateD2D()
 			WS_CHILD,
 			0,
 			0,
-			640,
-			480,
+			640 * zoomratio,
+			480 * zoomratio,
 			m_hWnd,
 			NULL, NULL, NULL);
 	}
@@ -126,7 +129,7 @@ bool WinDrawD2D::Resize( uint _width, uint _height )
 
 	HRESULT hr = S_OK;
 
-	::SetWindowPos( m_hCWnd, HWND_BOTTOM, 0, 0, 640, 400, SWP_SHOWWINDOW);
+	::SetWindowPos( m_hCWnd, HWND_BOTTOM, 0, 0, m_width, m_height, SWP_SHOWWINDOW);
 
 	if ( !m_RenderTarget ) {
 
@@ -228,7 +231,7 @@ bool WinDrawD2D::MakeBitmap()
 									NULL,
 									0 );
 
-	RECT rect = { 0,0,640,400 };
+	RECT rect = { 0,0,m_width,m_height };
 	m_GDIRT->ReleaseDC( &rect );
 	m_RenderTarget->EndDraw();
 
@@ -263,6 +266,7 @@ void WinDrawD2D::DrawScreen(const RECT& _rect, bool refresh)
 	if ( ::IsWindow(m_hWnd) == FALSE ) {
 		return;
 	}
+	int zoomratio = WinUI::zoomratio;
 
 	m_RenderTarget->BeginDraw();
 
@@ -288,11 +292,14 @@ void WinDrawD2D::DrawScreen(const RECT& _rect, bool refresh)
 			::SetDIBColorTable( hmemdc, 0, 0x100, m_bmpinfo.colors );
 		}
 
+		::StretchBlt(hDC, rc.left * zoomratio, rc.top * zoomratio, (rc.right - rc.left) * zoomratio, (rc.bottom - rc.top) * zoomratio,
+			hmemdc, rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, SRCCOPY);
+		/*
 		::BitBlt( hDC, rc.left, rc.top,
 				  rc.right - rc.left, rc.bottom - rc.top,
 				  hmemdc, rc.left, rc.top,
 				  SRCCOPY);
-
+		*/
 		::SelectObject( hmemdc, oldbitmap );
 		::DeleteDC( hmemdc );
 

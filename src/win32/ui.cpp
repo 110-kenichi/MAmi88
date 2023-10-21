@@ -72,6 +72,9 @@ WinUI::~WinUI()
 	delete tapemgr;
 }
 
+PC8801::Config* WinUI::sconfig = NULL;
+int WinUI::zoomratio = 1;
+
 // ---------------------------------------------------------------------------
 //	WinUI::InitM88
 //	M88 の初期化
@@ -84,12 +87,13 @@ bool WinUI::InitM88(const char* cmdline)
 	//	設定読み込み
 	LOG1("%d\tLoadConfig\n", timeGetTime());
 	PC8801::LoadConfig(&config, m88ini, true);
-
+	WinUI::sconfig = &config;
+	WinUI::zoomratio = config.zoomratio;
 	// ステータスバー初期化
 	statusdisplay.Init(hwnd);
 
 	// Window位置復元
-	ResizeWindow(640, 400);
+	ResizeWindow(640 * zoomratio, 400 * zoomratio);
 	LoadWindowPosition();
 	{
 		RECT rect;
@@ -215,8 +219,8 @@ bool WinUI::InitWindow(int nwinmode)
 		wstyle,
 		CW_USEDEFAULT,		// x
 		CW_USEDEFAULT,		// y
-		640,				// w
-		400,				// h
+		640 * zoomratio,				// w
+		400 * zoomratio,				// h
 		NULL,
 		NULL,
 		hinst,
@@ -730,8 +734,8 @@ LRESULT WinUI::WmCreate(HWND hwnd, WPARAM wparam, LPARAM lparam)
 	CREATESTRUCT* cs = (CREATESTRUCT*) wparam;
 
 	RECT rect;
-	rect.left = 0;	rect.right =  640;
-	rect.top  = 0;  rect.bottom = 400;
+	rect.left = 0;	rect.right =  640 * zoomratio;
+	rect.top  = 0;  rect.bottom = 400 * zoomratio;
 	
 	AdjustWindowRectEx(&rect, wstyle, TRUE, 0);
 	SetWindowPos(hwnd, 0, 0, 0, rect.right-rect.left, rect.bottom-rect.top,
@@ -840,7 +844,7 @@ LRESULT WinUI::WmTimer(HWND hwnd, WPARAM wparam, LPARAM lparam)
 		if (resetwindowsize > 0)
 		{
 			resetwindowsize--;
-			ResizeWindow(640, 400);
+			ResizeWindow(640 * zoomratio, 400 * zoomratio);
 		}
 		return 0;
 	}
@@ -1365,7 +1369,7 @@ void WinUI::ShowStatusWindow()
 			statusdisplay.Enable((config.flags & PC8801::Config::showfdcstatus) != 0);
 		else
 			statusdisplay.Disable();
-		ResizeWindow(640, 400);
+		ResizeWindow(640 * zoomratio, 400 * zoomratio);
 	}
 }
 
@@ -1424,11 +1428,18 @@ void WinUI::ChangeDisplayType(bool savepos)
 //
 LRESULT WinUI::M88ChangeDisplay(HWND hwnd, WPARAM, LPARAM)
 {
+	if (fullscreen)
+		zoomratio = 1;
+	else
+		zoomratio = config.zoomratio;
+
 	// 画面ドライバの切替え
 	// ドライバが false を返した場合 GDI ドライバが使用されることになる
-	if (!draw.ChangeDisplayMode
-				(fullscreen, (config.flags & PC8801::Config::force480) != 0))
+	if (!draw.ChangeDisplayMode(fullscreen, (config.flags & PC8801::Config::force480) != 0))
+	{
 		fullscreen = false;
+		zoomratio = config.zoomratio;
+	}
 
 	// ウィンドウスタイル関係の変更
 	wstyle = (DWORD)GetWindowLongPtr(hwnd, GWL_STYLE);
@@ -1442,7 +1453,7 @@ LRESULT WinUI::M88ChangeDisplay(HWND hwnd, WPARAM, LPARAM)
 //		SetCapture(hwnd);
 		SetWindowLongPtr(hwnd, GWL_STYLE, wstyle);
 		SetWindowLongPtr(hwnd, GWL_EXSTYLE, exstyle);
-		ResizeWindow(640, 400);
+		ResizeWindow(640 * zoomratio, 400 * zoomratio);
 		SetWindowPos(hwnd, HWND_NOTOPMOST, point.x, point.y, 0, 0, SWP_NOSIZE);
 		ShowStatusWindow();
 		report = true;

@@ -28,6 +28,7 @@
 #include "pc88/joypad.h"
 #include "calender.h"
 #include "loadmon.h"
+#include "ui.h"
 
 #include "status.h"
 #include "device_i.h"
@@ -85,7 +86,9 @@ bool PC88::Init(Draw* _draw, DiskManager* disk, TapeManager* tape)
 	if (!Scheduler::Init())
 		return false;
 	
-	if (!draw->Init(640, 400, 8))
+	int zoomratio = WinUI::zoomratio;
+
+	if (!draw->Init(640 * zoomratio, 400 * zoomratio, 8))
 		return false;
 	
 	if (!tapemgr->Init(this, 0, 0))

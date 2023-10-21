@@ -303,6 +303,27 @@ bool ConfigScreen::Clicked(HWND hdlg, HWND hwctl, UINT id)
 	case IDC_SCREEN_VSYNC:
 		config.flag2 ^= Config::synctovsync;
 		return true;
+
+	case IDC_SCREEN_ZOOM_1:
+		config.zoomratio = 1;
+		return true;
+
+	case IDC_SCREEN_ZOOM_2:
+		config.zoomratio = 2;
+		return true;
+
+	case IDC_SCREEN_ZOOM_3:
+		config.zoomratio = 3;
+		return true;
+
+	case IDC_SCREEN_ZOOM_4:
+		config.zoomratio = 4;
+		return true;
+
+	case IDC_SCREEN_ZOOM_5:
+		config.zoomratio = 5;
+		return true;
+
 	}
 	return false;
 }
@@ -312,6 +333,10 @@ void ConfigScreen::Update(HWND hdlg)
 	static const int item[4] = 
 	{ IDC_SCREEN_REFRESH_1, IDC_SCREEN_REFRESH_2, IDC_SCREEN_REFRESH_3, IDC_SCREEN_REFRESH_4 }; 
 	CheckDlgButton(hdlg, item[(config.refreshtiming-1) & 3], BSTATE(true));
+
+	static const int itemz[5] =
+	{ IDC_SCREEN_ZOOM_1, IDC_SCREEN_ZOOM_2, IDC_SCREEN_ZOOM_3, IDC_SCREEN_ZOOM_4, IDC_SCREEN_ZOOM_5 };
+	CheckDlgButton(hdlg, itemz[(config.zoomratio - 1) % 5], BSTATE(true));
 
 	// misc. option
 	CheckDlgButton(hdlg, IDC_SCREEN_ENABLEPCG, BSTATE(config.flags & Config::enablepcg));

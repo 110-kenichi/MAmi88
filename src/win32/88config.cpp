@@ -78,6 +78,9 @@ void LoadConfig(Config* cfg, const char* inifile, bool applydefault)
 	if (LoadConfigEntry(inifile, "RefreshTiming", &n, 1, applydefault))
 		cfg->refreshtiming = Limit(n, 4, 1);
 
+	if (LoadConfigEntry(inifile, "ZoomRatio", &n, 1, applydefault))
+		cfg->zoomratio = Limit(n, 5, 1);
+
 	if (LoadConfigEntry(inifile, "BASICMode", &n, Config::N88V2, applydefault))
 	{
 		if (   n == Config::N80    || n == Config::N88V1 
@@ -189,6 +192,7 @@ void SaveConfig(Config* cfg, const char* inifile, bool writedefault)
 	SaveEntry(inifile, "CPUClock", cfg->clock, writedefault);
 //	SaveEntry(inifile, "Speed", cfg->speed, writedefault);
 	SaveEntry(inifile, "RefreshTiming", cfg->refreshtiming, writedefault);
+	SaveEntry(inifile, "ZoomRatio", cfg->zoomratio, writedefault);
 	SaveEntry(inifile, "BASICMode", cfg->basicmode, writedefault);
 	SaveEntry(inifile, "Sound", cfg->sound, writedefault);
 	SaveEntry(inifile, "Switches", cfg->dipsw, writedefault);
