@@ -94,7 +94,7 @@ INT_PTR CALLBACK M88About::DlgProcGate
 //	about 用のテキスト
 //
 const char M88About::abouttext[] =
-	"build date: 2023/10/18(%.8x)\r\n"
+	"build date: 2023/10/22 V1.1.0.0 (%.8x)\r\n"
 	"\r\n"
 	"要望・バグ報告などは以下のページにどうぞ\r\n"
 	"\r\n"
