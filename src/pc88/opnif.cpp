@@ -87,15 +87,28 @@ bool OPNIF::Init(IOBus* b, int intrport, int io, Scheduler* s)
 		deviceNo = 0;
 	else if (this->GetID() == DEV_ID('O', 'P', 'N', '2'))
 		deviceNo = 1;
+RETRY:
 	m_rpcClient = new rpc::client("localhost", 30000);
-	m_rpcClient->set_timeout(10000);
+	m_rpcClient->set_timeout(5000);
 	try
 	{
 		m_rpcClient->call("DirectAccessToChip", (unsigned char)0, (unsigned char)0, (unsigned int)0, (unsigned int)0);
 	}
 	catch(...)
 	{
-		MessageBox(NULL, "Failed to connect to the MAmidiMemo.", "MAmi88", MB_ICONEXCLAMATION | MB_OKCANCEL | MB_DEFBUTTON2);
+		char msg[512];
+		wsprintf(msg, "Failed to connect to the MAmidiMemo for Unit No %d.", deviceNo);
+		int res = MessageBox(NULL, msg, "MAmi88", MB_ICONEXCLAMATION | MB_ABORTRETRYIGNORE | MB_DEFBUTTON1);
+		if (res == IDABORT)
+		{
+			return false;
+		}
+		else if (res == IDRETRY)
+		{
+			m_rpcClient->~client();
+			m_rpcClient = NULL;
+			goto RETRY;
+		}
 	}
 	auto stat = m_rpcClient->get_connection_state();
 	if (stat == rpc::client::connection_state::connected)
